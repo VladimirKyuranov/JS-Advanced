@@ -10,4 +10,4 @@ function add(num) {
     return calc;
 }
 
-console.log(add(1)(2).toString());
+console.log(add(1)(2)(4)(3).toString());
