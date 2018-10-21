@@ -11,57 +11,77 @@ function validate() {
     let companyInfo = $("#companyInfo");
     let companyNumberInput = $("#companyNumber");
     let validDiv = $("#valid");
-    let isFormValid = true;
-    $("#submit")
+    let submitBtn = $("#submit")
         .on("click", validateForm);
     
     function manageCompanyInput() {
         if (companyChkBox.is(':checked')) {
-            companyInfo.css("display", "block");
+            companyInfo
+                .css("display", "block");
         } else {
-            companyInfo.css("display", "none");
+            companyInfo
+                .css("display", "none");
         }
     }
     
     function validateForm(event) {
         event.preventDefault();
-        validateInput(usernameInput, usernameRegex);
-        validateInput(emailInput, emailRegex);
-        validatePassword();
-        
+        let valid = validateInput(usernameInput, usernameRegex);
+        valid = validateInput(emailInput, emailRegex) && valid;
+        valid = validatePassword() && valid;
         if (companyChkBox.is(':checked')) {
-            validateCompanyNumber();
+            valid = validateCompanyNumber() && valid;
         }
         
-        if (isFormValid) {
-            validDiv.css("display", "block");
+        if (valid) {
+            validDiv
+                .css("display", "block");
         } else {
-            validDiv.css("display", "none");
+            validDiv
+                .css("display", "none");
         }
     }
     
     function validateInput(input, pattern) {
         if (pattern.test(input.val().toString())) {
-            input.css("border", "none");
+            input
+                .css("border", "none");
+            return true;
         } else {
-            input.css("border-color", "red");
-            isFormValid = false;
+            input
+                .css("border-color", "red");
+            return false;
         }
     }
     
     function validatePassword() {
-        if (passwordInput.val() === confirmPasswordInput.val()) {
-            validateInput(passwordInput.val(), passwordRegex)
+        let password = passwordInput.val().toString();
+        let confirmPassword = confirmPasswordInput.val().toString();
+        if (password === confirmPassword && passwordRegex.test(password)) {
+            passwordInput
+                .css("border", "none");
+            confirmPasswordInput
+                .css("border", "none");
+            return true;
+        } else {
+            passwordInput
+                .css("border-color", "red");
+            confirmPasswordInput
+                .css("border-color", "red");
+            return false;
         }
     }
     
     function validateCompanyNumber() {
         let companyNumber = Number(companyNumberInput.val());
         if (1000 <= companyNumber && companyNumber <= 9999) {
-            companyNumberInput.css("border", "none");
+            companyNumberInput
+                .css("border", "none");
+            return true;
         } else {
-            companyNumberInput.css("border-color", "red");
-            isFormValid = false;
+            companyNumberInput
+                .css("border-color", "red");
+            return false;
         }
     }
 }

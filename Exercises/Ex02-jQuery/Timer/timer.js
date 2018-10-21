@@ -19,7 +19,6 @@ function timer() {
                 hoursSpan.text(`0${Math.floor(seconds / 60 / 60)}`.slice(-2));
                 minutesSpan.text(`0${Math.floor(seconds / 60) % 60}`.slice(-2));
                 secondsSpan.text(`0${Math.floor(seconds % 60)}`.slice(-2));
-           
         }
     }
     
