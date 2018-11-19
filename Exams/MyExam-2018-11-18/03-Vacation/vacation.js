@@ -12,12 +12,7 @@ class Vacation {
         let grades = Object.keys(this.kids);
         grades.forEach(g => count += this.kids[g].length);
         
-        if (count === 0) {
-            return 0;
-        }
-        else {
-            return count;
-        }
+        return count;
     }
     
     registerChild(name, grade, budget) {
@@ -50,17 +45,17 @@ class Vacation {
     toString() {
         if (this.numberOfChildren === 0) {
             return `No children are enrolled for the trip and the organization of ${this.organizer} falls out...`
-        }else {
+        } else {
             let grades = [...Object.keys(this.kids)].sort((a, b) => +a - +b);
             let result = `${this.organizer} will take ${this.numberOfChildren} children on trip to ${this.destination}\n`;
-    
+            
             grades.filter(g => this.kids[g].length !== 0).forEach(g => {
                 let count = 1;
                 result += `Grade: ${g}\n`;
-        
+                
                 this.kids[g].forEach(k => result += `${count++}. ${k}\n`);
             });
-    
+            
             return result;
         }
     }
